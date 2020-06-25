@@ -2,5 +2,6 @@
     "adminList": [],
     "blackList": [],
     "botList": [],
-    "protect": false
+    "protect": false,
+    "lastOP": 0
 }
