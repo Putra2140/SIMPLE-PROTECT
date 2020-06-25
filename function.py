@@ -3,7 +3,7 @@ from thrift.transport.THttpClient import THttpClient
 from thrift.protocol.TCompactProtocol import TCompactProtocol
 from BE import *
 from BE.ttypes import *
-import time, json, requests, threading, os, random, ast, datetime
+import time, json, requests, threading, os, random, ast, datetime, sys
 
 def readJson(filename):
     with open(filename) as f:
@@ -36,7 +36,8 @@ class BE_Team:
             self.poll = self.openTransport("/P4", True) ## REAL POLL /P5
         self.profile = self.getProfile()
         self.serverTime = self.getServerTime()
-        self.lastOp = 0
+        self.savedData = readJson("data.json")
+        self.lastOp = self.savedData["lastOP"]
         self.messageData = {}
         self.startBot = datetime.datetime.now()
         print("[ Login ] Display Name: " + self.profile.displayName)
@@ -51,6 +52,9 @@ class BE_Team:
         transport.setCustomHeaders(self.thisHeaders)
         protocol = TCompactProtocol(transport)
         return BEService.Client(protocol)
+
+    def saveData(self):
+        writeJson("data.json",self.savedData)
 
     def createChat(self, name, targetUserMids=[]):
         return self.talk.createChat(CreateChatRequest(0,0,name,targetUserMids,""))
@@ -84,6 +88,9 @@ class BE_Team:
 
     def updateChat(self, chat, updatedAttribute):
         return self.talk.updateChat(UpdateChatRequest(0,chat,updatedAttribute))
+
+    def findAndAddContactsByMid(self, mid):
+        return self.talk.findAndAddContactsByMid(0, mid, 0, '')
 
     def sendMessage(self, to, text, contentMetadata={}, contentType=0):
         msg = Message()
