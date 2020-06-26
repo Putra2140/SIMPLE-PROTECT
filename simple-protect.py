@@ -1,7 +1,7 @@
 from function import *
 
 
-myTokens = ['ubbfb6f4c6a3339c09729948b49b44f06:aWF0OiAxNTkzMDYzMzAxODk1Cg==..cCC631WSEw5K4c+Ue1/JQUER1uM=']
+myTokens = ['main_token', 'token_assist1', 'token_assist2', 'token_assist3', 'etc....']
 #TOTAL OF ACCOUNT = UPTOYOU
 #FIRST LIST = MAIN YOUR ACCOUNT
 
@@ -209,7 +209,7 @@ def worker(op):
             
 while True:
     try:
-    #ops = myBotsClient[myBotsMid[0]].fetchOps(123) #YOU MUST USE CORRECT VALUE :)
+        #ops = myBotsClient[myBotsMid[0]].fetchOps(123) #YOU MUST USE CORRECT VALUE :)
         ops = myBotsClient[myBotsMid[0]].fetchOperations()
         for op in ops:
             if op.revision > myBotsClient[myBotsMid[0]].savedData["lastOP"]:
@@ -218,6 +218,5 @@ while True:
                 except Exception as e:
                     print(e)
                 myBotsClient[myBotsMid[0]].savedData["lastOP"] = max(op.revision, myBotsClient[myBotsMid[0]].savedData["lastOP"])
-    except Exception as e:
-        print(e)
+    except:
         pass
