@@ -211,11 +211,11 @@ while True:
     #ops = myBotsClient[myBotsMid[0]].fetchOps(123) #YOU MUST USE CORRECT VALUE :)
         ops = myBotsClient[myBotsMid[0]].fetchOperations()
         for op in ops:
-            if op.revision > myBotsClient[myBotsMid[0]].lastOp:
+            if op.revision > myBotsClient[myBotsMid[0]].savedData["lastOP"]:
                 try:
                     worker(op)
                 except Exception as e:
                     print(e)
-                myBotsClient[myBotsMid[0]].lastOp = max(op.revision, myBotsClient[myBotsMid[0]].lastOp)
+                myBotsClient[myBotsMid[0]].savedData["lastOP"] = max(op.revision, myBotsClient[myBotsMid[0]].savedData["lastOP"])
     except:
         pass

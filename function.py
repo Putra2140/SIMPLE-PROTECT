@@ -37,7 +37,6 @@ class BE_Team:
         self.profile = self.getProfile()
         self.serverTime = self.getServerTime()
         self.savedData = readJson("data.json")
-        self.lastOp = self.savedData["lastOP"]
         self.messageData = {}
         self.startBot = datetime.datetime.now()
         print("[ Login ] Display Name: " + self.profile.displayName)
@@ -132,10 +131,10 @@ class BE_Team:
         return self.talk.getProfile(syncReason)
 
     def fetchOps(self, individualRev, globalRev=int(time.time())+1*1000000, count=5): # MUST USE CORRECT VALUE
-        return self.poll.fetchOps(self.lastOp, count, globalRev, individualRev)
+        return self.poll.fetchOps(self.savedData["lastOP"], count, globalRev, individualRev)
 
     def fetchOperations(self, count=100):
-        return self.poll.fetchOperations(self.lastOp, count)
+        return self.poll.fetchOperations(self.savedData["lastOP"], count)
 
 
 
