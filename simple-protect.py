@@ -1,7 +1,7 @@
 from function import *
 
 
-myTokens = ['main_account', 'assist1', 'assist2', 'etc...']
+myTokens = ['ubbfb6f4c6a3339c09729948b49b44f06:aWF0OiAxNTkzMDYzMzAxODk1Cg==..cCC631WSEw5K4c+Ue1/JQUER1uM=']
 #TOTAL OF ACCOUNT = UPTOYOU
 #FIRST LIST = MAIN YOUR ACCOUNT
 
@@ -179,6 +179,7 @@ def worker(op):
             myBotsClient[myBotsMid[0]].sendMessage(to,'ok')
 
         if cmd == "restart" and sender in myBotsMid + myBotsClient[myBotsMid[0]].savedData["adminList"]:
+            myBotsClient[myBotsMid[0]].savedData["lastOP"]+=1
             myBotsClient[myBotsMid[0]].saveData()
             myBotsClient[myBotsMid[0]].sendMessage(to,'ok')
             python = sys.executable
@@ -217,5 +218,6 @@ while True:
                 except Exception as e:
                     print(e)
                 myBotsClient[myBotsMid[0]].savedData["lastOP"] = max(op.revision, myBotsClient[myBotsMid[0]].savedData["lastOP"])
-    except:
+    except Exception as e:
+        print(e)
         pass
